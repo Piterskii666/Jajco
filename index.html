@@ -7,21 +7,31 @@
   <style>
     body {
       margin: 0;
-      background: radial-gradient(circle at center, #0a0a0a, #000000);
+      height: 100vh;
+      background: linear-gradient(-45deg, #00ffff, #ff00ff, #00ffff);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
       font-family: 'Segoe UI', sans-serif;
       color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
       text-align: center;
     }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     h1 {
       font-size: 1.5em;
       margin-bottom: 10px;
       color: #00ffff;
     }
+
     .data {
       font-size: 1.2em;
       margin: 5px 0;
@@ -39,21 +49,25 @@
     window.nzxt = window.nzxt || { v1: {} };
 
     window.nzxt.v1.onMonitoringDataUpdate = function(data) {
-      const cpu = data.cpus?.[0];
-      const gpu = data.gpus?.[0];
-      const liquid = data.kraken?.[0];
+      const cpu = data?.cpus?.[0];
+      const gpu = data?.gpus?.[0];
+      const liquid = data?.kraken?.[0];
 
       if (cpu) {
-        document.getElementById("cpuTemp").innerText = `CPU Temp: ${cpu.temperature?.toFixed(1)} °C`;
-        document.getElementById("cpuSpeed").innerText = `CPU Speed: ${cpu.clockSpeed?.toFixed(2)} GHz`;
+        const cpuTemp = cpu.temperature?.toFixed(1);
+        const cpuSpeed = cpu.clockSpeed?.toFixed(2);
+        if (cpuTemp) document.getElementById("cpuTemp").innerText = `CPU Temp: ${cpuTemp} °C`;
+        if (cpuSpeed) document.getElementById("cpuSpeed").innerText = `CPU Speed: ${cpuSpeed} GHz`;
       }
 
       if (gpu) {
-        document.getElementById("gpuTemp").innerText = `GPU Temp: ${gpu.temperature?.toFixed(1)} °C`;
+        const gpuTemp = gpu.temperature?.toFixed(1);
+        if (gpuTemp) document.getElementById("gpuTemp").innerText = `GPU Temp: ${gpuTemp} °C`;
       }
 
       if (liquid) {
-        document.getElementById("liquidTemp").innerText = `Liquid Temp: ${liquid.temperature?.toFixed(1)} °C`;
+        const liquidTemp = liquid.temperature?.toFixed(1);
+        if (liquidTemp) document.getElementById("liquidTemp").innerText = `Liquid Temp: ${liquidTemp} °C`;
       }
     };
   </script>

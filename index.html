@@ -43,7 +43,7 @@
   <div class="data" id="cpuTemp">CPU Temp: -- °C</div>
   <div class="data" id="gpuTemp">GPU Temp: -- °C</div>
   <div class="data" id="liquidTemp">Liquid Temp: -- °C</div>
-  <div class="data" id="cpuSpeed">CPU Speed: -- GHz</div>
+  <div class="data" id="cpuLoad">CPU Load: -- %</div>
 
   <script>
     window.nzxt = window.nzxt || { v1: {} };
@@ -55,9 +55,9 @@
 
       if (cpu) {
         const cpuTemp = cpu.temperature?.toFixed(1);
-        const cpuSpeed = cpu.clockSpeed?.toFixed(2);
+        const cpuLoad = cpu.load?.toFixed(1);
         if (cpuTemp) document.getElementById("cpuTemp").innerText = `CPU Temp: ${cpuTemp} °C`;
-        if (cpuSpeed) document.getElementById("cpuSpeed").innerText = `CPU Speed: ${cpuSpeed} GHz`;
+        if (cpuLoad) document.getElementById("cpuLoad").innerText = `CPU Load: ${cpuLoad} %`;
       }
 
       if (gpu) {

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NZXT Kraken Z3 Web Integration</title>
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(circle at center, #0a0a0a, #000000);
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    h1 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      color: #00ffff;
+    }
+    .data {
+      font-size: 1.2em;
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>NZXT Kraken Z3</h1>
+  <div class="data" id="cpuTemp">CPU Temp: -- °C</div>
+  <div class="data" id="gpuTemp">GPU Temp: -- °C</div>
+  <div class="data" id="liquidTemp">Liquid Temp: -- °C</div>
+  <div class="data" id="cpuSpeed">CPU Speed: -- GHz</div>
+
+  <script>
+    window.nzxt = window.nzxt || { v1: {} };
+
+    window.nzxt.v1.onMonitoringDataUpdate = function(data) {
+      const cpu = data.cpus?.[0];
+      const gpu = data.gpus?.[0];
+      const liquid = data.kraken?.[0];
+
+      if (cpu) {
+        document.getElementById("cpuTemp").innerText = `CPU Temp: ${cpu.temperature.toFixed(1)} °C`;
+        document.getElementById("cpuSpeed").innerText = `CPU Speed: ${cpu.clockSpeed.toFixed(2)} GHz`;
+      }
+      if (gpu) {
+        document.getElementById("gpuTemp").innerText = `GPU Temp: ${gpu.temperature.toFixed(1)} °C`;
+      }
+      if (liquid) {
+        document.getElementById("liquidTemp").innerText = `Liquid Temp: ${liquid.temperature.toFixed(1)} °C`;
+      }
+    };
+  </script>
+</body>
+</html>

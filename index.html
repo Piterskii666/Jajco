@@ -44,14 +44,16 @@
       const liquid = data.kraken?.[0];
 
       if (cpu) {
-        document.getElementById("cpuTemp").innerText = `CPU Temp: ${cpu.temperature.toFixed(1)} °C`;
-        document.getElementById("cpuSpeed").innerText = `CPU Speed: ${cpu.clockSpeed.toFixed(2)} GHz`;
+        document.getElementById("cpuTemp").innerText = `CPU Temp: ${cpu.temperature?.toFixed(1)} °C`;
+        document.getElementById("cpuSpeed").innerText = `CPU Speed: ${cpu.clockSpeed?.toFixed(2)} GHz`;
       }
+
       if (gpu) {
-        document.getElementById("gpuTemp").innerText = `GPU Temp: ${gpu.temperature.toFixed(1)} °C`;
+        document.getElementById("gpuTemp").innerText = `GPU Temp: ${gpu.temperature?.toFixed(1)} °C`;
       }
+
       if (liquid) {
-        document.getElementById("liquidTemp").innerText = `Liquid Temp: ${liquid.temperature.toFixed(1)} °C`;
+        document.getElementById("liquidTemp").innerText = `Liquid Temp: ${liquid.temperature?.toFixed(1)} °C`;
       }
     };
   </script>
